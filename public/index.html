@@ -1,24 +1,136 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Seamens Tailor</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seamens Tailor & Textile</title>
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#2c3e50">
+  <meta name="theme-color" content="#0f4c5c">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <main class="app">
+    <header class="app-header">
+      <h1>Seamens Tailor & Textile</h1>
+      <p>Digital Measurement & Billing System</p>
+    </header>
 
-<h2>Seamens Tailor & Textile</h2>
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="entryTab">New Receipt</button>
+      <button class="tab-btn" data-tab="historyTab">History</button>
+    </nav>
 
-<input type="text" id="receipt" placeholder="Receipt No"><br>
-<input type="text" id="name" placeholder="Customer Name"><br>
-<input type="text" id="phone" placeholder="Phone"><br>
-<input type="date" id="delivery"><br>
-<input type="number" id="total" placeholder="Total"><br>
-<input type="number" id="advance" placeholder="Advance"><br>
+    <section id="entryTab" class="tab active">
+      <div class="card">
+        <h2>Customer & Payment</h2>
+        <div class="grid">
+          <label>
+            Receipt No
+            <input type="text" id="receiptNo" readonly>
+          </label>
+          <label>
+            Date
+            <input type="date" id="orderDate">
+          </label>
+          <label>
+            Customer Name
+            <input type="text" id="customerName" placeholder="Enter customer name">
+          </label>
+          <label>
+            Phone Number
+            <input type="text" id="phone" placeholder="10-digit phone">
+          </label>
+          <label>
+            Delivery Date
+            <input type="date" id="deliveryDate">
+          </label>
+        </div>
+      </div>
 
-<button onclick="saveData()">Save</button>
+      <div class="card">
+        <div class="card-title-row">
+          <h2>Billing Details</h2>
+          <button id="addItemBtn" class="secondary-btn" type="button">+ Add Item</button>
+        </div>
+        <div class="table-wrap">
+          <table id="billingTable">
+            <thead>
+              <tr>
+                <th>S.No</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="billingBody"></tbody>
+          </table>
+        </div>
 
-<script src="script.js"></script>
+        <div class="totals">
+          <label>
+            Total Amount
+            <input type="number" id="totalAmount" readonly>
+          </label>
+          <label>
+            Advance Paid
+            <input type="number" id="advancePaid" value="0">
+          </label>
+          <label>
+            Balance Amount
+            <input type="number" id="balanceAmount" readonly>
+          </label>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Measurement Type</h2>
+        <div class="type-buttons">
+          <button class="type-btn active" data-type="shirt" type="button">Shirt</button>
+          <button class="type-btn" data-type="pant" type="button">Pant</button>
+          <button class="type-btn" data-type="suit" type="button">Suit</button>
+        </div>
+
+        <div id="shirtFields" class="measurement-fields active"></div>
+        <div id="pantFields" class="measurement-fields"></div>
+        <div id="suitFields" class="measurement-fields"></div>
+      </div>
+
+      <div class="actions">
+        <button id="saveReceiptBtn" class="primary-btn" type="button">Save Receipt</button>
+        <button id="printCurrentBtn" class="secondary-btn" type="button" disabled>Print Last Saved</button>
+      </div>
+      <p id="statusText" class="status"></p>
+    </section>
+
+    <section id="historyTab" class="tab">
+      <div class="card">
+        <h2>Search History</h2>
+        <div class="grid">
+          <label>
+            Search (Receipt / Name / Phone)
+            <input type="text" id="searchQuery" placeholder="0001 or customer name">
+          </label>
+          <label>
+            Delivery Date
+            <input type="date" id="searchDate">
+          </label>
+        </div>
+        <div class="actions left">
+          <button id="searchBtn" class="primary-btn" type="button">Search</button>
+          <button id="clearSearchBtn" class="secondary-btn" type="button">Clear</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Results</h2>
+        <div id="historyList" class="history-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <section id="printArea" class="print-area"></section>
+
+  <script src="script.js"></script>
 </body>
 </html>
